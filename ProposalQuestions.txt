@@ -1,0 +1,10 @@
+CONFIRMED PROPOSAL: (VOTED BY EVERYONE)
+ 
+CONFIRMED QUESTIONS
+	•	What is the best time for travelling? (seasonal?, weekdays/weekends?)
+	•	Time-lapse series of graph showing performance of airports (year to year) 
+	◦	    Find the worse performing airport? 
+	◦	    Find the worse performing airline?
+	◦	    City/airport performance for a single year (heatmap)
+	◦	    Effect of the airline/airport delay and performance during 1999 - 2000 (y2k bug)  
+	•	Find the best/worse performing airline/carrier
