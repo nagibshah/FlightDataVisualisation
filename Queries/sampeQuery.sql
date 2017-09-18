@@ -1,3 +1,4 @@
+# delay summary all airports
 select f."Origin", f."Dest", count(*) as number_of_flights,
 	sum("ArrDelay") as total_arrival_delay_minutes,
     sum("DepDelay") as total_dep_delay_minutes,
@@ -9,6 +10,20 @@ from flightdata2000 f,
      group by "Origin", "Dest") d
 where f."Origin" = d."Origin" and f."Dest" = d."Dest"
 group by f."Origin", f."Dest",d.number_of_delays;
+
+# delay summary daily breakdown query sample 
+select trim(lower(to_char("FlightDate", 'Month'))) as flightMonth, 
+		EXTRACT(day from "FlightDate") as dayfrom,
+        EXTRACT(day from ("FlightDate" + 1)) as dayto, 
+        count("ArrDelay") as number_of_delays,
+        "FlightDate" as flightDate
+     from flightdata2005
+     where "ArrDelay" > 15
+     group by flightDate
+     order by flightDate asc;
+     
+     
+# index samples
 
 
 create index origin1999 on flightdata1999 ("Origin");

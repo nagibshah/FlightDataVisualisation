@@ -19,6 +19,12 @@
 * locate the .graphml file in the root folder of the repository
 * Copy and paste it another folder and open using gephi/yEd/D3. 
 
+### initial visualisation in d3 
+
+* open a terminal/cmd prompt and move to "<PATH>/FlightDataVisualisation/VisualisationsD3" directory
+* start the python webserver (python -m http.server 8888)
+* open a browser and go to http://localhost:8888/DailyFlightHeatmap.html
+
 ## Ground rules 
 
 * no dodgy commits
