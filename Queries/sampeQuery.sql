@@ -13,11 +13,11 @@ group by f."Origin", f."Dest",d.number_of_delays;
 
 # delay summary daily breakdown query sample 
 select trim(lower(to_char("FlightDate", 'Month'))) as flightMonth, 
-		EXTRACT(day from "FlightDate") as dayfrom,
-        EXTRACT(day from ("FlightDate" + 1)) as dayto, 
+		EXTRACT(day from "FlightDate") -1 as dayfrom,
+        EXTRACT(day from "FlightDate") as dayto, -- the day the data is for
         count("ArrDelay") as number_of_delays,
         "FlightDate" as flightDate
-     from flightdata2005
+     from flightdata2008
      where "ArrDelay" > 15
      group by flightDate
      order by flightDate asc;

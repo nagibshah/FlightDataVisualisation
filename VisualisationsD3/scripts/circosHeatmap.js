@@ -36,8 +36,8 @@ function drawCircos(error, containerid, months, flightDelays) {
           outerRadius: 0.98,
           logScale: false,
           min: 3000,
-          max:10000,
-          color: 'RdYlGn'
+          max:8000,
+          color: 'YlOrRd' //'-RdYlGn'
         })
         .render();
   }
