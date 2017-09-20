@@ -16,7 +16,7 @@
 }
 
 .airport:hover .airport-arc {
-  stroke: #f00;
+  stroke: rgb(73, 70, 70);
 }
 
 .airport-cell {
@@ -25,9 +25,16 @@
   stroke-opacity: 0.0;
   pointer-events: all;
 }
+.summary {float:right; text-align: left;}
 
 </style>
-<svg width="960" height="600"></svg>
+<div class="summary">
+    <h2><span></span></h2>
+    <p>Total <span></span> flights</p>
+</div>
+<div class="map">
+    <svg width="960" height="600"></svg>
+</div>
 <script src="node_modules/d3/build/d3.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script src="scripts/airportMap2.js"></script>
