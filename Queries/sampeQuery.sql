@@ -33,6 +33,36 @@ group by origin, dest
 order by origin, dest
 
 
+# airport export with breakdowns
+
+select a.iata as iata,
+		a.airport as name, a.state,
+        a.country, lat as latitude,
+        long as longitude,
+        o.count as totalflights,
+        o.number_of_delays as numberofdelays,
+        o.delayPercentage as delayPercentage
+
+from airports a left outer join
+
+(select f.origin, count(*) as count,
+	sum(arrdelay) as total_arrival_delay_minutes,
+    d.number_of_delays,
+    (d.number_of_delays * 100)/count(*) as delayPercentage
+from ontime f,
+	(select origin,
+        count(arrdelay) as number_of_delays
+     from ontime
+     where arrdelay > 15
+     and year=2008
+     group by origin) d
+where f.origin = d.origin and year=2008
+group by f.origin, d.number_of_delays) o
+
+on a.iata = o.origin;
+	
+
+
 # index samples
 
 create index flightorigin on ontime (origin);

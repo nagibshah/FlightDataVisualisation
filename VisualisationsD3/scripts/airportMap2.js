@@ -25,14 +25,14 @@ var voronoi = d3.voronoi()
 
 d3.queue()
 .defer(d3.json, "data/us-10m.json")
-.defer(d3.csv, "data/airports.csv", typeAirport)
+.defer(d3.csv, "data/airports2008.csv", typeAirport)
 .defer(d3.csv, "data/flights-airport3.csv", typeFlight)
-.await(ready);
+.await(drawMap);
 
-function ready(error, us, airports, flights) {
+function drawMap(error, us, airports, flights) {
 
     if (error) throw error;
-    var airportFlights = [];
+    var airportFlights = [], airportDelayPercentages = [];
     var usAirports = [], nonUSAirports = [];
     var airportByIata = d3.map(airports, function(d) { return d.iata; });
     var airportByUSA = d3.map(airports, function(d) { return d.country; });
@@ -50,6 +50,9 @@ function ready(error, us, airports, flights) {
 
     var min = Math.min.apply(Math, airportFlights);
     var max = Math.max.apply(Math, airportFlights);
+
+    var colors = d3.scaleSequential(d3.interpolateYlOrRd) // d3.interpolateRdYlGn
+        .domain([10, 35]);    
     
     var radius = d3.scaleSqrt()
       .domain([min, max])
@@ -96,9 +99,11 @@ function ready(error, us, airports, flights) {
         return returnVal; 
     })
     .attr("r", function(d) { return radius(d.arcs.coordinates.length); })
-    .attr("fill", "steelblue")
+    .attr("fill", function(d) {
+        return colors(d.delaypercentage);
+    })
     .attr("stroke","white")
-    .attr("opacity", 0.5);
+    .attr("opacity", 0.9);
 
     var airport = svg.selectAll(".airport")
     .data(usAirports)
@@ -130,15 +135,15 @@ function ready(error, us, airports, flights) {
 }
 
 function typeAirport(d) {
-d[0] = +d.longitude;
-d[1] = +d.latitude;
-d.arcs = {type: "MultiLineString", coordinates: []};
-return d;
+    d[0] = +d.longitude;
+    d[1] = +d.latitude;
+    d.arcs = {type: "MultiLineString", coordinates: []};
+    return d;
 }
 
 function typeFlight(d) {
-d.count = +d.count;
-d.originCordinates =  [];
-d.destinationCordinates = [];
-return d;
+    d.count = +d.count;
+    d.originCordinates =  [];
+    d.destinationCordinates = [];
+    return d;
 }
