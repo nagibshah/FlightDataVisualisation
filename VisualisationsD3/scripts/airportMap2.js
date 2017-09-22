@@ -1,5 +1,5 @@
 // change events 
-var data = ["2008", "2007", "2006","2005","2004","2003","2002","2001","2000","1999"];
+var data = ["2008", "2007", "2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991","1990","1989","1988","1987"];
 
 var select = d3.select('.howto')
   .append('select')
@@ -75,7 +75,7 @@ function showYear(year) {
     d3.queue()
     .defer(d3.json, "data/us-10m.json")
     .defer(d3.csv, "data/airports" + year + ".csv", typeAirport)
-    .defer(d3.csv, "data/flights-airport3.csv", typeFlight)
+    .defer(d3.csv, "data/flightdata" + year + ".csv", typeFlight)
     .await(drawMap);
     
 }
@@ -155,8 +155,8 @@ function drawMap(error, us, airports, flights) {
     .attr("fill", function(d) {
         return colors(d.delaypercentage);
     })
-    .attr("stroke","white")
-    .attr("opacity", 0.9);
+    .attr("stroke","black")
+    .attr("opacity", 0.8);
 
     var airport = svg.selectAll(".airport")
     .data(usAirports)
