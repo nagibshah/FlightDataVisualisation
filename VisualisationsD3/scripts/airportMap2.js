@@ -1,20 +1,40 @@
+// change events 
+var data = ["2008", "2007", "2006","2005","2004","2003","2002","2001","2000","1999"];
+
+var select = d3.select('.howto')
+  .append('select')
+  	.attr('class','select')
+    .on('change',onchange)
+
+var options = select
+  .selectAll('option')
+	.data(data).enter()
+	.append('option')
+		.text(function (d) { return d; });
+
+function onchange() {
+    selectValue = d3.select('select').property('value')
+    d3.select(".show").text('Showing the data for ' + selectValue + ' year');
+    showYear(selectValue);
+};
+
 var svg = d3.select("svg"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
 // to handle non us cities
 var projectionNonUS = d3.geoAlbers()
-.translate([width / 2, height / 2])
-.scale(1280);
+.translate([width / 3, height / 3])
+.scale(950);
 
 // contains alaska
 var projection = d3.geoAlbersUsa()
-.translate([width / 2, height / 2])
-.scale(1280);
+.translate([width / 3, height / 3])
+.scale(950);
 
 var radius = d3.scaleSqrt()
 .domain([0, 100])
-.range([0, 14]);
+.range([0, 10]);
 
 var path = d3.geoPath()
 .projection(projection);
@@ -23,14 +43,45 @@ var path = d3.geoPath()
 var voronoi = d3.voronoi()
 .extent([[-1, -1], [width + 1, height + 1]]);
 
-d3.queue()
-.defer(d3.json, "data/us-10m.json")
-.defer(d3.csv, "data/airports2008.csv", typeAirport)
-.defer(d3.csv, "data/flights-airport3.csv", typeFlight)
-.await(drawMap);
+function showYear(year) {
+    svg.selectAll("*").remove();
+
+    svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+    
+    // to handle non us cities
+    projectionNonUS = d3.geoAlbers()
+    .translate([width / 2, height / 2])
+    .scale(950);
+    
+    // contains alaska
+    projection = d3.geoAlbersUsa()
+    .translate([width / 2, height / 2])
+    .scale(950);
+    
+    radius = d3.scaleSqrt()
+    .domain([0, 100])
+    .range([0, 10]);
+    
+    path = d3.geoPath()
+    .projection(projection);
+    //.pointRadius(2.5);
+    
+    voronoi = d3.voronoi()
+    .extent([[-1, -1], [width + 1, height + 1]]);
+
+    // show the map 
+    d3.queue()
+    .defer(d3.json, "data/us-10m.json")
+    .defer(d3.csv, "data/airports" + year + ".csv", typeAirport)
+    .defer(d3.csv, "data/flights-airport3.csv", typeFlight)
+    .await(drawMap);
+    
+}
 
 function drawMap(error, us, airports, flights) {
-
+    
     if (error) throw error;
     var airportFlights = [], airportDelayPercentages = [];
     var usAirports = [], nonUSAirports = [];
@@ -42,6 +93,8 @@ function drawMap(error, us, airports, flights) {
             target = airportByIata.get(flight.destination);
         source.arcs.coordinates.push([source, target]);
         target.arcs.coordinates.push([target, source]);
+        var flight = {from: source, to: target, numberOfFlights: flight.count, delayPercent: flight.delaypercentage}
+        source.flights.push(flight);
     });
 
     airports.forEach(function(airport) {
@@ -55,8 +108,8 @@ function drawMap(error, us, airports, flights) {
         .domain([10, 35]);    
     
     var radius = d3.scaleSqrt()
-      .domain([min, max])
-      .range([2.5, 20]);
+        .domain([min, max])
+        .range([2.5, 15]);
 
     airports = airports
     .filter(function(d) { return d.arcs.coordinates.length; });
@@ -109,35 +162,45 @@ function drawMap(error, us, airports, flights) {
     .data(usAirports)
     .enter().append("g")
     .attr("class", "airport")
-    .attr("r", function(d) { return d.arcs.coordinates.length; })
+    .attr("r", function(d) { 
+        return d.arcs.coordinates.length; 
+    })
     .on("mouseover", function(d, i) { 
-        d3.select("h2 span").text(d.name); 
+        d3.select("h3 span").text(d.name); 
         d3.select("p span").text(d.arcs.coordinates.length); 
     });
 
     airport.append("title")
     .text(function(d) { return d.iata + "\n" + d.name + "\n" + d.arcs.coordinates.length + " flights"; });
 
-    airport.append("path")
-    .attr("class", "airport-arc")
-    .attr("d", function(d) { return path(d.arcs); });
+    airport.append("g")
+    .attr("class", "airport-flights")
+    .selectAll("g")
+    .data(function(d) { 
+        return d.flights; 
+    })
+    .enter().append("path")
+    .attr("class", function(d) { 
+        rootStyle = "airport-arc";
+        if (d.delayPercent > 35) 
+            return rootStyle + " red" 
+        else return rootStyle + " green";
+    })
+    .attr("d", function(d) { 
+        return path({type: "LineString", coordinates: [d.from, d.to]}); 
+    });
 
     airport.append("path")
     .data(voronoi.polygons(usAirports.map(projection)))
     .attr("class", "airport-cell")
     .attr("d", function(d) { return d ? "M" + d.join("L") + "Z" : null; });
-
-    //airport.append("path")
-    //.data(voronoi.polygons(nonUSAirports.map(projectionNonUS)))
-    //.attr("class", "airport-cell")
-    //.attr("d", function(d) { return d ? "M" + d.join("L") + "Z" : null; });
-
 }
 
 function typeAirport(d) {
     d[0] = +d.longitude;
     d[1] = +d.latitude;
     d.arcs = {type: "MultiLineString", coordinates: []};
+    d.flights = [];
     return d;
 }
 
@@ -147,3 +210,5 @@ function typeFlight(d) {
     d.destinationCordinates = [];
     return d;
 }
+
+showYear("2008");

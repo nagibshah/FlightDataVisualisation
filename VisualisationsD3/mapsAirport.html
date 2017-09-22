@@ -15,8 +15,11 @@
   fill: none;
 }
 
-.airport:hover .airport-arc {
-  stroke: rgb(73, 70, 70);
+.airport:hover .airport-arc.green {
+  stroke: green;
+}
+.airport:hover .airport-arc.red {
+  stroke: red;
 }
 
 .airport-cell {
@@ -25,15 +28,29 @@
   stroke-opacity: 0.0;
   pointer-events: all;
 }
-.summary {float:right; text-align: left;}
+.summary {
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px;
+}
+.map {display: table-cell;}
+.mapContainer {display: table;} 
 
 </style>
-<div class="summary">
-    <h2><span></span></h2>
-    <p>Total <span></span> flights</p>
+<div class="howto">
+    <h1>Flight Data</h1>
+    <p>select an item from the dropdown.</p>
+    <p class="show"></p>
 </div>
-<div class="map">
-    <svg width="960" height="600"></svg>
+<div class="mapContainer">
+  <div class="map">
+      <svg width="850" height="500"></svg>
+  </div>
+  <div class="summary">
+    <h3><span></span></h3>
+    <p>Total <span></span> flights</p>
+  </div>
 </div>
 <script src="node_modules/d3/build/d3.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>

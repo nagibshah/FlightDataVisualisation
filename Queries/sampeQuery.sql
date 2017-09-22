@@ -65,6 +65,8 @@ on a.iata = o.origin;
 
 # index samples
 
+create index year on ontime(year);
+create index date on ontime(year, month, dayofmonth);
 create index flightorigin on ontime (origin);
 create index flightdest on ontime (dest);
 create index flightarrdelay on ontime (arrdelay);
