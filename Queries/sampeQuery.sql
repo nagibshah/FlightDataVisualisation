@@ -62,6 +62,20 @@ group by f.origin, d.number_of_delays) o
 on a.iata = o.origin;
 	
 
+# daily heatmap of delays  1987 - 2008 
+select f.year, f.month, f.dayofmonth, count(*) as totalflights,
+    (d.number_of_delays * 100)/count(*) as delayPercentage
+from ontime f,
+	(select year, month, dayofmonth,
+        count(arrdelay) as number_of_delays
+     from ontime
+     where arrdelay > 15
+     group by year,month,dayofmonth) d
+where f.year = d.year and 
+	f.month = d.month and 
+    f.dayofmonth = d.dayofmonth
+group by f.year, f.month, f.dayofmonth, d.number_of_delays;
+
 
 # index samples
 
