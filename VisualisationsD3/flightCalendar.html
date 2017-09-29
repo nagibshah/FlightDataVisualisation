@@ -50,7 +50,7 @@ svg.append("g")
   .enter().append("path")
     .attr("d", pathMonth);
 
-d3.csv("alldata.csv", function(error, csv) {
+d3.csv("data/calendar_delay_alldata.csv", function(error, csv) {
   if (error){alert(1); alert(error);throw error;}
 
   var data = d3.nest()

@@ -1,0 +1,96 @@
+---
+title: "CorrelationMatrixFlights"
+author: "Nsha9343"
+date: "29/09/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the correlation data
+
+```{r}
+
+loadFile <- function(file) {
+  data <- read.table(file, header = T, sep = ",")
+}
+
+flightDelayData <- loadFile(file = "DelayCorsMatrixData.csv")
+
+str(flightDelayData)
+head(flightDelayData)
+summary(flightDelayData)
+
+flightDelayDataSubset <- flightDelayData[-1, 100]
+head(flightDelayDataSubset)
+
+```
+
+## Calculate the cors
+
+```{r echo=FALSE}
+
+# ++++++++++++++++++++++++++++
+# flattenCorrMatrix
+# ++++++++++++++++++++++++++++
+# cormat : matrix of the correlation coefficients
+# pmat : matrix of the correlation p-values
+flattenCorrMatrix <- function(cormat, pmat) {
+  ut <- upper.tri(cormat)
+  data.frame(
+    row = rownames(cormat)[row(cormat)[ut]],
+    column = rownames(cormat)[col(cormat)[ut]],
+    cor  =(cormat)[ut],
+    p = pmat[ut]
+    )
+}
+
+# install.packages("Hmisc")
+
+res <- cor(flightDelayData[-1])
+
+library(Hmisc)
+res2<-rcorr(as.matrix(flightDelayData[-1]))
+flattenCorrMatrix(res2$r, res2$P)
+
+```
+
+# visualise the cors 
+
+```{r}
+
+#install.packages("corrplot")
+library(corrplot)
+corrplot(res, type = "lower", order = "hclust", 
+         tl.col = "black", tl.srt = 50)
+#corrplot(res)
+
+# Get some colors
+col<- colorRampPalette(c("blue", "white", "red"))(20)
+heatmap(x = res, col = col, symm = TRUE)
+
+```
+
+# regressions 
+
+```{r echo=FALSE, warning=FALSE}
+
+# install.packages("PerformanceAnalytics")
+
+library("PerformanceAnalytics")
+png(file="correlationChart.png",width=800,height=800,res=72)
+chart.Correlation(flightDelayData[1:200,-1], histogram=TRUE, pch=3)
+dev.off()
+
+
+```
+
+```{r}
+
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
