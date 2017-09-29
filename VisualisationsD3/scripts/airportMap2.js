@@ -1,36 +1,41 @@
 // change events 
 var data = ["2008", "2007", "2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991","1990","1989","1988","1987"];
+var svgScale = 700;
 
-var select = d3.select('.howto')
-  .append('select')
-  	.attr('class','select')
-    .on('change',onchange)
-
+var select = d3.select('ul.dropdown-menu');
+        
 var options = select
-  .selectAll('option')
-	.data(data).enter()
-	.append('option')
-		.text(function (d) { return d; });
+    .selectAll('li.dropdownitem')
+        .data(data).enter()
+        .append("li")
+            .attr("class", "dropdownitem")
+            .append("a")
+                .attr("class", "yearselection")
+                .text(function(d) { return d; });
 
-function onchange() {
-    selectValue = d3.select('select').property('value')
-    d3.select(".show").text('Showing the data for ' + selectValue + ' year');
+d3.selectAll("a.yearselection").on('click', onclick);
+
+function onclick(selectValue) {
+    //d3.select(".show").text('Showing the data for ' + selectValue + ' year');
+    d3.select("#dropdownMenu1").text(selectValue)
+        .append("span")
+            .attr("class","caret");
     showYear(selectValue);
-};
+}
 
-var svg = d3.select("svg"),
+var svg = d3.select("svg.interactiveMap"),
 width = +svg.attr("width"),
 height = +svg.attr("height");
 
 // to handle non us cities
 var projectionNonUS = d3.geoAlbers()
 .translate([width / 3, height / 3])
-.scale(950);
+.scale(svgScale);
 
 // contains alaska
 var projection = d3.geoAlbersUsa()
 .translate([width / 3, height / 3])
-.scale(950);
+.scale(svgScale);
 
 var radius = d3.scaleSqrt()
 .domain([0, 100])
@@ -46,19 +51,19 @@ var voronoi = d3.voronoi()
 function showYear(year) {
     svg.selectAll("*").remove();
 
-    svg = d3.select("svg"),
+    svg = d3.select("svg.interactiveMap"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
     
     // to handle non us cities
     projectionNonUS = d3.geoAlbers()
     .translate([width / 2, height / 2])
-    .scale(950);
+    .scale(svgScale);
     
     // contains alaska
     projection = d3.geoAlbersUsa()
     .translate([width / 2, height / 2])
-    .scale(950);
+    .scale(svgScale);
     
     radius = d3.scaleSqrt()
     .domain([0, 100])
@@ -109,7 +114,7 @@ function drawMap(error, us, airports, flights) {
     
     var radius = d3.scaleSqrt()
         .domain([min, max])
-        .range([2.5, 15]);
+        .range([1.5, 12]);
 
     airports = airports
     .filter(function(d) { return d.arcs.coordinates.length; });
@@ -166,7 +171,7 @@ function drawMap(error, us, airports, flights) {
         return d.arcs.coordinates.length; 
     })
     .on("mouseover", function(d, i) { 
-        d3.select("h3 span").text(d.name); 
+        d3.select("h5 span").text(d.name); 
         d3.select("p span").text(d.arcs.coordinates.length); 
     });
 

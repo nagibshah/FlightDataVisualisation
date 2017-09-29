@@ -1,58 +1,26 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-
-.land {
-  fill: #ddd;
-}
-
-.state-borders {
-  fill: none;
-  stroke: #fff;
-}
-
-.airport-arc {
-  fill: none;
-}
-
-.airport:hover .airport-arc.green {
-  stroke: rgb(68, 161, 68);
-}
-.airport:hover .airport-arc.red {
-  stroke: rgb(212, 47, 47);
-  stroke-width: 2;
-}
-
-.airport-cell {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: 0.0;
-  pointer-events: all;
-}
-.summary {
-    text-align: left;
-    display: table-cell;
-    vertical-align: middle;
-    padding: 10px;
-}
-.map {display: table-cell;}
-.mapContainer {display: table;} 
-
-</style>
-<div class="howto">
-    <h1>Flight Data</h1>
-    <p>select an item from the dropdown.</p>
-    <p class="show"></p>
-</div>
-<div class="mapContainer">
-  <div class="map">
-      <svg width="850" height="500"></svg>
-  </div>
-  <div class="summary">
-    <h3><span></span></h3>
-    <p>Total <span></span> flights</p>
-  </div>
-</div>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <link rel='stylesheet' href='styles/flightInteractiveMap.css' type='text/css' media='all' />
+  </head>
+  <body>
+      <div class="howto">
+          <h1>Flight Data</h1>
+          <p>select an item from the dropdown.</p>
+          <p class="show"></p>
+      </div>
+      <div class="mapContainer">
+        <div class="map">
+            <svg width="850" height="500"></svg>
+        </div>
+        <div class="summary">
+          <h3><span></span></h3>
+          <p>Total <span></span> flights</p>
+        </div>
+      </div>
+  </body>
+</html>
 <script src="node_modules/d3/build/d3.min.js"></script>
 <script src="https://d3js.org/topojson.v1.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>

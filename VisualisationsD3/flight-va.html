@@ -1,0 +1,111 @@
+<!-- create a va system here --> 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>US Flight Data VA System - A Hitchhikers guide to U.S.A</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel='stylesheet' href='styles/flightInteractiveMap.css' type='text/css' media='all' />
+        <style>
+            .col-md-3, .col-md-6, .col-md-2, .col-md-5, .col-md-12 {border: 0px none; padding-left: 5px;padding-right: 5px;/*1px solid black;*/}
+            .left {float: left}
+            .right {float: right}
+            .correlations img.row {height: 230px;width:50%}
+            .container {width: 100%;}
+            .howto {clear: both;}
+            .summary {
+                text-align: left;
+                vertical-align: middle;
+                padding: 5px;
+                position: relative;
+                top: -385px;
+                background: rgba(91, 192, 222, 0.57);
+                width: 23%;
+                float: right;
+                border: 1px solid black;
+                border-radius: 12px;
+                overflow: hidden;
+                height: 100px;
+                z-index: 3;
+            }
+            .maps {height:440px;}
+        </style>
+    </head>
+    <body>
+        <div class="container theme-showcase" role="main">            
+            <!-- Main jumbotron for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <h1>A Hitchhikers Guide to U.S.A</h1>
+                <p>A flight data visualisation of the US domestic flight network and delay data</p>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-2">
+                    Summary and stats go here 
+                </div>
+                <div class="col-md-5">
+                        best airport and plots go here
+                    </div>
+                <div class="col-md-5 calendarHeatmap">
+                    <h4>Seasonal Effects</h4>
+                    <!--<svg class="calendarHeatmap" width="300" height="800"></svg>-->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12 maps">
+                    <h4 class="left">Flight Network</h4>
+                    <div class="btn-group right" role="group" aria-label="View">
+                            <button type="button" class="btn btn-info">View Overview</button>
+                            <button type="button" class="btn btn-info">View Interactive</button>
+                    </div>
+
+                    <!--Primary Network Diagram and Interactive Map goes here -->
+                    <div class="howto">
+                            <p class="show"></p>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        select a year
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                </ul>
+                            </div>
+                    </div>
+                    <div class="mapContainer">
+                            <div class="map">
+                                <svg class="interactiveMap" width="650" height="350"></svg>
+                            </div>
+                            <div class="summary">
+                              <h5><span></span></h5>
+                              <p>Total <span></span> flights</p>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-12 correlations">
+                    <h4>Delay reasons and types Correlations</h4>
+                    <img class="left row" src="visualisationImages/corsMatrix.png"></img>
+                    <img class="left row" src="visualisationImages/corsHeatmap.png"></img>
+                    <img style="width:100%;height:400px;" src="visualisationImages/corsScatter.png"></img>
+                </div>
+            </div>
+            <div class="col-md-12">
+                Bubble chart goes here 
+            </div>
+        </div>
+    </body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="scripts/bootstrap.min.js"></script>
+    <!-- d3 js files --> 
+    <script src="node_modules/d3/build/d3.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="scripts/calendarHeatmap.js"></script>
+    <!-- VA js files -->
+    <script src="scripts/airportMap2.js"></script>
+</html>
