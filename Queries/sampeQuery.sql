@@ -77,6 +77,23 @@ where f.year = d.year and
 group by f.year, f.month, f.dayofmonth, d.number_of_delays;
 
 
+# correlation query 
+select to_date((year || '-' || month  || '-' || dayofmonth), 'YYYY-MM-DD') as flightdate,
+		month, dayofmonth,
+		sum(arrdelay) as arrdelay, sum(depdelay) as depdelay, sum(distance) as distance, sum(taxiin) as taxiin,
+        sum(taxiout) as taxiout, 
+		sum(carrierdelay) as carrierdelay, sum(weatherdelay) as weatherdelay, sum(nasdelay) as nasdelay, 
+        sum(securitydelay) as securitydelay,sum(lateaircraftdelay) as lateaircraftdelay
+from ontime
+where year > 2006 and
+arrdelay is not null and depdelay is not null and taxiin is not null and taxiout is not null 
+and carrierdelay is not null and weatherdelay is not null 
+and nasdelay is not null and securitydelay is not null and lateaircraftdelay is not null
+group by flightdate, month, dayofmonth
+order by flightdate desc;
+
+
+
 # index samples
 
 create index year on ontime(year);
