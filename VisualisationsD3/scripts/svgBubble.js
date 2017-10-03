@@ -1,10 +1,10 @@
-var width = 1200,
-height = 150,
+var width = 1300,
+height = 200,
 padding = 1.5, // separation between nodes
 maxRadius = 40;
 
 var n = 118, // total number of nodes
-m = 23; // number of distinct clusters
+m = 26; // number of distinct clusters
 
 var min=0, max=0;
 
@@ -17,7 +17,7 @@ var colorsAirline= d3.scaleOrdinal(d3.schemeCategory20)
 
 var x = d3.scaleBand()
 .domain(d3.range(m))
-.range([50, width]);
+.range([70, width]);
 
 var svgBubble = d3.select("div.airlineComparison").append("svg")
 .attr("class", "airlinePerformanceViz")
@@ -35,7 +35,7 @@ divTooltip.append("span")
 .attr("class", "airline_pdelay");
 
 d3.queue()
-.defer(d3.csv, "data/bubblechart.csv", processAirline)
+.defer(d3.csv, "data/airlineComparison_refined.csv", processAirline)
 .await(drawAirlinePerformance);
 
 function drawAirlinePerformance(error, airlines) {
@@ -53,12 +53,12 @@ max = Math.max.apply(Math, airlineDelays);
 
 // nest by color? 
 d3.nest()
-    .key(function(d) { return d.UniqueCarrier; })
+    .key(function(d) { return d.uniquecarrier; })
     .entries(airlines)
     .forEach(force);
 
 d3.nest()
-    .key(function(d) { return d.UniqueCarrier; })
+    .key(function(d) { return d.uniquecarrier; })
     .entries(airlines)
     .forEach(legend);
 
@@ -67,14 +67,14 @@ d3.nest()
 function processAirline(d)
 {
     d.radius = 0;
-    d.delaypercentage =  d.pdelay;
-    d.color = colorsAirline(d.color);
+    d.delaypercentage =  d.delaypercentage;
+    d.color = colorsAirline(d.serialno);
     return d;
 }
 
 function legend(entry, i) {
     svgBubble.append("text")
-        .attr("transform", "translate(" + x(i) + ",100)")
+        .attr("transform", "translate(" + x(i) + ",200)")
         .text(entry.key);
     // Add the Legend
     //svgBubble.append("text")
@@ -92,10 +92,10 @@ function force(entry, i) {
 
     var radius = d3.scaleSqrt()
         .domain([min, max])
-        .range([5, 15]);
+        .range([3, 10]);
 
     var circle = svgBubble.append("g")
-    .attr("transform", "translate(" + x(i) + ",50)")
+    .attr("transform", "translate(" + x(i) + ",100)")
     .selectAll("circle")
     .data(nodes)
     .enter().append("circle")
@@ -112,9 +112,9 @@ function force(entry, i) {
             .style("left", (d3.event.pageX) + "px")		
             .style("top", (d3.event.pageY) + "px");
         
-        divTooltip.select("span.carrierName").text("Carrier Code: " + d.UniqueCarrier);
+        divTooltip.select("span.carrierName").text("Carrier: " + d.airline);
         d3.select("span.airline_year").text("Year: " + d.year);
-        d3.select("span.airline_pdelay").text("Delay: " + d3.format(".2")(d.pdelay) + "%"); 
+        d3.select("span.airline_pdelay").text("Delay: " + d3.format(".2")(d.delaypercentage) + "%"); 
     })
     .on("mouseout", function (d, i) {
         d3.select(this).attr('stroke', 0);

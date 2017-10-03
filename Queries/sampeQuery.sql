@@ -93,6 +93,69 @@ group by flightdate, month, dayofmonth
 order by flightdate desc;
 
 
+# airline comparsion 
+
+select f.uniquecarrier,c."Description" as airline,c.index as serialno, f.year, totalflights,
+    d.number_of_delays,
+    (d.number_of_delays * 100)/totalflights as delayPercentage
+    
+from (select distinct(uniquecarrier), year,
+        count(arrdelay) as totalflights
+     from ontime
+     group by uniquecarrier, year) f 
+     
+     inner join
+
+	(select distinct(uniquecarrier), year,
+        count(arrdelay) as number_of_delays
+     from ontime
+     where arrdelay > 15
+     group by uniquecarrier, year) d
+     
+on f.uniquecarrier = d.uniquecarrier and f.year = d.year
+
+inner join carriers c on f.uniquecarrier = c."Code"
+
+group by f.uniquecarrier, f.year, totalflights, d.number_of_delays, airline,serialno
+order by totalflights desc, delayPercentage asc;
+
+
+# airline network summary 
+
+select a.iata as iata,
+		a.airport as name, 
+        lat as latitude,
+        long as longitude,
+        o.count as totalflights,
+        o.number_of_delays as numberofdelays,
+        o.delayPercentage as delayPercentage,
+        o.carrierdelay, o.weatherdelay, o.nasdelay, o.securitydelay, o.lateaircraftdelay
+
+from airports a left outer join
+
+(select f.origin, count(*) as count,
+	sum(arrdelay) as total_arrival_delay_minutes,
+    d.number_of_delays,
+    (d.number_of_delays * 100)/count(*) as delayPercentage,
+ 	d.carrierdelay, d.weatherdelay, d.nasdelay, d.securitydelay, d.lateaircraftdelay
+from ontime f,
+	(select origin,
+        count(arrdelay) as number_of_delays,
+     	count(carrierdelay) as carrierdelay,
+     	count(weatherdelay) as weatherdelay,
+     	count(nasdelay) as nasdelay,
+     	count(securitydelay) as securitydelay,
+     	count(lateaircraftdelay) as lateaircraftdelay
+     from ontime
+     where arrdelay > 15
+     and year=2008
+     group by origin) d
+where f.origin = d.origin and year=2008
+group by f.origin, d.number_of_delays, d.carrierdelay, d.weatherdelay, 
+ 	d.nasdelay, d.securitydelay, d.lateaircraftdelay) o
+
+on a.iata = o.origin;
+
 
 # index samples
 
