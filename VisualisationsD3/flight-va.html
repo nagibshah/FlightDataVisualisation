@@ -45,8 +45,46 @@
                 border-radius: 8px;			
                 pointer-events: none;			
             }
+            .clip-circle {
+                clip-path: circle(60px at center);
+                /* OLD VALUE example: circle(245px, 140px, 50px); */
+                /* Yep, even the new clip-path has deprecated stuff. */
+            }
             div.tooltip span {display: block;}
             span.carrierName {width: 140px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+            .clip-circle {
+                //clip-path: circle(60px at center);
+                //border-radius: 50%;
+                background: lightblue;
+                height: 140px;
+                width: 140px;
+                text-align: center;
+                margin-top: 50px;
+                margin-left: 65px;
+                z-index: 1;
+            }
+            .clip-circle h5 {
+                font-size: 12px;
+                font-weight: bold;
+                width: 50%;
+                padding-top: 20px;
+                margin: auto;
+            }
+            .clip-circle li {
+                font-size: 10px;
+            }
+            .spotlight span {margin-left: -50px;}
+            .spotlight span.line { 
+                position: absolute;
+                height: 10px;
+                width: 100px;
+                z-index: -99;
+                background: lightblue;
+            }
+            .spotlight.flightnetwork span {width: 26px;top: 100px;left: 249px;}
+            .spotlight.seasonal span {width: 26px;top: 289px;left: 125px;}
+            .spotlight.delaystats span { width: 26px;top: 482px;left: 249px;}
+            .correlations {margin-left:10px;}
         </style>
     </head>
     <body>
@@ -57,17 +95,53 @@
                 <p>A flight data visualisation of the US domestic flight network and delay data</p>
             </div>
             <div class="col-md-6">
-                <div class="col-md-2">
-                    <h4>Data</h4>
-                    <h4>Tips</h4>
-                    <h4>Suggestions</h4>
-                </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                         <h4>Best/Worse Airports</h4>
                 </div>
-                <div class="col-md-5 calendarHeatmap">
+                <div class="col-md-4 calendarHeatmap">
                     <h4>Seasonal Effects</h4>
                     <!--<svg class="calendarHeatmap" width="300" height="800"></svg>-->
+                </div>
+                <div class="col-md-4">
+                        <div class="spotlight flightnetwork">
+                            <div class="clip-circle">
+                                <h5>Flight Network</h5>
+                                <p>
+                                    <ul>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <span class="line"></span>
+                        </div>
+                        <div class="spotlight seasonal">
+                            <div class="clip-circle">
+                                <h5>When to travel?</h5>
+                                <p>
+                                    <ul>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <span class="line"></span>
+                        </div>
+                        <div class="spotlight delaystats">
+                            <div class="clip-circle">
+                                <h5>Delay Stats</h5>
+                                <p>
+                                    <ul>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <span class="line"></span>
+                        </div>
                 </div>
             </div>
             <div class="col-md-6">

@@ -114,6 +114,8 @@ function force(entry, i) {
         
         divTooltip.select("span.carrierName").text("Carrier: " + d.airline);
         d3.select("span.airline_year").text("Year: " + d.year);
+        d3.select("span.airline_total").text("Total Flights: " + d.totalflights);
+        d3.select("span.airline_delays").text("Num of Delays: " + d.number_of_delays);
         d3.select("span.airline_pdelay").text("Delay: " + d3.format(".2")(d.delaypercentage) + "%"); 
     })
     .on("mouseout", function (d, i) {

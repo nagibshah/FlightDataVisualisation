@@ -80,7 +80,8 @@ heatmap(x = res, col = col, symm = TRUE)
 # install.packages("PerformanceAnalytics")
 
 library("PerformanceAnalytics")
-png(file="correlationChart.png",width=800,height=800,res=72)
+png(file="correlationChart.png", width = 800, height=800)
+#plot(1:2)
 chart.Correlation(flightDelayData[1:200,-1], histogram=TRUE, pch=3)
 dev.off()
 
