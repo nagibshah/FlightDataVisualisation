@@ -141,11 +141,11 @@ from airports a left outer join
 from ontime f,
 	(select origin,
         count(arrdelay) as number_of_delays,
-     	count(carrierdelay) as carrierdelay,
-     	count(weatherdelay) as weatherdelay,
-     	count(nasdelay) as nasdelay,
-     	count(securitydelay) as securitydelay,
-     	count(lateaircraftdelay) as lateaircraftdelay
+     	sum(carrierdelay) as carrierdelay,
+     	sum(weatherdelay) as weatherdelay,
+     	sum(nasdelay) as nasdelay,
+     	sum(securitydelay) as securitydelay,
+     	sum(lateaircraftdelay) as lateaircraftdelay
      from ontime
      where arrdelay > 15
      and year=2008
