@@ -14,6 +14,10 @@ var color = d3.scaleSequential(d3.interpolateYlOrRd) // d3.interpolateRdYlGn
 //width = +svgCalendar.attr("width"),
 //height = +svgCalendar.attr("height");
 
+var t = d3.transition()
+.duration(750)
+.ease(d3.easeLinear);
+
 var svgCalendarContainer = d3.select(".calendarHeatmap")
 .selectAll("svg.calendarSVG")
 .data(d3.range(1987, 2009))
@@ -72,6 +76,7 @@ return d[0].delaypercentage;
 .object(csv);
 
 rect.filter(function(d) { return d in data; })
+  //.transition().duration(1000)
   .attr("fill", function(d) {return color(data[d]); })
 .append("title")
   .text(function(d) { return d + ": " + formatPercent(data[d]); });

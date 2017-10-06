@@ -53,8 +53,6 @@
             div.tooltip span {display: block;}
             span.carrierName {width: 140px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
             .clip-circle {
-                //clip-path: circle(60px at center);
-                //border-radius: 50%;
                 background: lightblue;
                 height: 140px;
                 width: 140px;
@@ -85,6 +83,7 @@
             .spotlight.seasonal span {width: 30px;top: 289px;left: 125px;}
             .spotlight.delaystats span { width: 26px;top: 482px;left: 249px;}
             .correlations {margin-left:10px;}
+            .cat img {width: 630px;height: 400px;}
         </style>
     </head>
     <body>
@@ -178,31 +177,41 @@
                 <div class="col-md-12 maps">
                     <h4 class="left">Flight Network</h4>
                     <div class="btn-group right" role="group" aria-label="View">
-                            <button type="button" class="btn btn-info">View Overview</button>
-                            <button type="button" class="btn btn-info">View Interactive</button>
+                        <button id="interactive" type="button" class="btn btn-info">View Interactive</button>    
+                        <button id="networkoverview" type="button" class="btn btn-info">View Overview</button>
+                        <button id="delaybreakdowns" type="button" class="btn btn-info">View Delay breakdowns</button>    
                     </div>
 
                     <!--Primary Network Diagram and Interactive Map goes here -->
-                    <div class="howto">
-                            <p class="show"></p>
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        select a year
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                </ul>
-                            </div>
+                    <div id="networkoverviewContent" class="cat">
+                        <img src="visualisationImages/Networks.jpg">
                     </div>
-                    <div class="mapContainer">
-                            <div class="map">
-                                <svg class="interactiveMap" width="650" height="350"></svg>
-                            </div>
-                            <div class="summary">
-                              <h5><span></span></h5>
-                              <p>Total <span></span> flights</p>
-                            </div>
+                    <div id="delaybreakdownsContent" class="cat">
+                        <img src="visualisationImages/PieCharts.jpg">
                     </div>
+                    <div id="interactiveContent" class="cat">
+                        <div class="howto">
+                                <p class="show"></p>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            select a year
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    </ul>
+                                </div>
+                        </div>
+                        <div class="mapContainer">
+                                <div class="map">
+                                    <svg class="interactiveMap" width="650" height="350"></svg>
+                                </div>
+                                <div class="summary">
+                                    <h5><span></span></h5>
+                                    <p>Total <span></span> flights</p>
+                                </div>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="col-md-12 correlations">
                     <h4>Delay reasons and types Correlations</h4>
@@ -230,4 +239,12 @@
     <!-- VA js files -->
     <script src="scripts/airportMap2.js"></script>
     <script src="scripts/svgBubble.js"></script>
+    <script type="text/javascript">
+        $(".cat").hide();
+        $("#interactiveContent").show();
+        $(".btn-info").on("click", function(){
+            $(".cat").hide();
+            $('#' + this.id + 'Content').fadeIn( "slow" );
+        });
+    </script>
 </html>
