@@ -4,7 +4,7 @@ padding = 1.5, // separation between nodes
 maxRadius = 40;
 
 var n = 118, // total number of nodes
-m = 26; // number of distinct clusters
+m = 24; // number of distinct clusters
 
 var min=0, max=0;
 
@@ -17,7 +17,7 @@ var colorsAirline= d3.scaleOrdinal(d3.schemeCategory20)
 
 var x = d3.scaleBand()
 .domain(d3.range(m))
-.range([70, width]);
+.range([60, width]);
 
 var svgBubble = d3.select("div.airlineComparison").append("svg")
 .attr("class", "airlinePerformanceViz")
@@ -31,6 +31,10 @@ divTooltip.append("span")
 .attr("class", "carrierName");
 divTooltip.append("span")
 .attr("class", "airline_year");
+divTooltip.append("span")
+.attr("class", "airline_total");
+divTooltip.append("span")
+.attr("class", "airline_delays");
 divTooltip.append("span")
 .attr("class", "airline_pdelay");
 
@@ -74,7 +78,7 @@ function processAirline(d)
 
 function legend(entry, i) {
     svgBubble.append("text")
-        .attr("transform", "translate(" + x(i) + ",200)")
+        .attr("transform", "translate(" + x(i) + ",160)")
         .text(entry.key);
     // Add the Legend
     //svgBubble.append("text")
@@ -92,10 +96,10 @@ function force(entry, i) {
 
     var radius = d3.scaleSqrt()
         .domain([min, max])
-        .range([3, 10]);
+        .range([3, 15]);
 
     var circle = svgBubble.append("g")
-    .attr("transform", "translate(" + x(i) + ",100)")
+    .attr("transform", "translate(" + x(i) + ",70)")
     .selectAll("circle")
     .data(nodes)
     .enter().append("circle")
