@@ -1,4 +1,4 @@
-var width = 1300,
+var width = 1400,
 height = 200,
 padding = 1.5, // separation between nodes
 maxRadius = 40;
@@ -65,7 +65,6 @@ d3.nest()
     .key(function(d) { return d.uniquecarrier; })
     .entries(airlines)
     .forEach(legend);
-
 }
 
 function processAirline(d)
@@ -103,11 +102,20 @@ function force(entry, i) {
     .selectAll("circle")
     .data(nodes)
     .enter().append("circle")
-        .attr("r", function(d) { 
-            return radius(d.delaypercentage); 
-        })
-        .style("fill", function(d) { return d.color; })
-    .on("mouseover", function(d, i) { 
+        //.attr("r", function(d) { 
+        //    return radius(d.delaypercentage); 
+        //})
+        .style("fill", function(d) { return d.color; });
+
+    circle.transition()
+    .duration(1500)
+    .delay(300)
+    .ease(d3.easeLinear)
+    .attr("r", function(d, i) { 
+        return radius(d.delaypercentage); 
+    });
+
+    circle.on("mouseover", function(d, i) { 
         d3.select(this).attr('stroke', 'black');
         divTooltip.transition()		
             .duration(200)		

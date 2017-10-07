@@ -11,10 +11,11 @@
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel='stylesheet' href='styles/flightInteractiveMap.css' type='text/css' media='all' />
         <style>
+            .jumbotron {padding-top:10px; padding-bottom: 10px;margin-bottom: 10px}
             .col-md-3, .col-md-6, .col-md-2, .col-md-5, .col-md-12 {border: 0px none; padding-left: 5px;padding-right: 5px;/*1px solid black;*/}
             .left {float: left}
             .right {float: right}
-            .correlations img.row {height: 230px;width:50%}
+            .correlations img.row {height: 230px;width:50%;margin-left:10px;}
             .container {width: 100%;}
             .howto {clear: both;}
             .summary {
@@ -32,7 +33,9 @@
                 height: 100px;
                 z-index: 3;
             }
-            .maps {height:440px;}
+            .maps {
+                height:440px;
+            }
             div.tooltip {	
                 position: absolute;			
                 text-align: left;			
@@ -82,8 +85,9 @@
             .spotlight.flightnetwork span {width: 26px;top: 100px;left: 249px;}
             .spotlight.seasonal span {width: 30px;top: 289px;left: 125px;}
             .spotlight.delaystats span { width: 26px;top: 482px;left: 249px;}
-            .correlations {margin-left:10px;}
-            .cat img {width: 630px;height: 400px;}
+            .correlations {margin-top:10px;}
+            .calendarHeatmap, .maps, .correlations {border: 5px solid blue;border-radius: 10px;padding: 5px} 
+            .cat img {width: 600px;height: 370px;}
         </style>
     </head>
     <body>
@@ -96,6 +100,7 @@
             <div class="col-md-6">
                 <div class="col-md-4">
                         <h4>Best/Worse Airports</h4>
+                        
                         <div class='tableauPlaceholder' id='viz1507195645886' style='transform:scale(0.6,0.5);left:-118px;top:-250px;'>
                             <noscript>
                                 <a href='#'><img alt='Dashboard 3 ' 
@@ -125,13 +130,14 @@
                             var scriptElement = document.createElement('script');  
                                 scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                   
                                 vizElement.parentNode.insertBefore(scriptElement, vizElement);                
-                    </script>                      
+                    </script>
+                                     
                 </div>
-                <div class="col-md-4 calendarHeatmap">
+                <div class="col-md-5 calendarHeatmap">
                     <h4>Seasonal Effects</h4>
                     <!--<svg class="calendarHeatmap" width="300" height="800"></svg>-->
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                         <div class="spotlight flightnetwork">
                             <div class="clip-circle">
                                 <h5>Flight Network</h5>

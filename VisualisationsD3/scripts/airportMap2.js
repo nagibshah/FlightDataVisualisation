@@ -156,12 +156,16 @@ function drawMap(error, us, airports, flights) {
         }
         return returnVal; 
     })
+    .transition()
     .attr("r", function(d) { return radius(d.arcs.coordinates.length); })
     .attr("fill", function(d) {
         return colors(d.delaypercentage);
     })
     .attr("stroke","black")
-    .attr("opacity", 0.8);
+    .attr("opacity", 0.8)
+    .duration(1000)
+    .ease(d3.easeLinear)
+    .delay(300);
 
     var airport = svg.selectAll(".airport")
     .data(usAirports)
