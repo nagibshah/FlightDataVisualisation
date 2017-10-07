@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>US Flight Data VA System - A Hitchhikers guide to U.S.A</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel='stylesheet' href='styles/flightInteractiveMap.css' type='text/css' media='all' />
+        <style>
+            .jumbotron {padding-top:10px; padding-bottom: 10px;margin-bottom: 10px}
+            .col-md-3, .col-md-6, .col-md-2, .col-md-5, .col-md-12 {border: 0px none; padding-left: 5px;padding-right: 5px;/*1px solid black;*/}
+            .left {float: left}
+            .right {float: right}
+            .correlations img.row { height: 320px;width: 32%;margin-left: 10px;margin-left:10px;}
+            .container {width: 100%;}
+            .howto {clear: both;}
+            .summary {
+                text-align: left;
+                vertical-align: middle;
+                padding: 5px;
+                position: relative;
+                top: -385px;
+                background: rgba(91, 192, 222, 0.57);
+                width: 23%;
+                float: right;
+                border: 1px solid black;
+                border-radius: 12px;
+                overflow: hidden;
+                height: 100px;
+                z-index: 3;
+            }
+            .maps {
+                height:440px;
+            }
+            div.tooltip {	
+                position: absolute;			
+                text-align: left;			
+                width: 140px;					
+                height: 90px;					
+                padding: 5px;				
+                font: 12px sans-serif;		
+                background: lightsteelblue;	
+                border: 0px;		
+                border-radius: 8px;			
+                pointer-events: none;			
+            }
+            .clip-circle {
+                clip-path: circle(60px at center);
+                /* OLD VALUE example: circle(245px, 140px, 50px); */
+                /* Yep, even the new clip-path has deprecated stuff. */
+            }
+            div.tooltip span {display: block;}
+            span.carrierName {width: 140px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+            .clip-circle {
+                background: lightblue;
+                height: 150px;
+                width: 150px;
+                text-align: center;
+                margin-top: 50px;
+                margin-left: 20px;
+                z-index: 1;
+            }
+            .clip-circle h5 {
+                font-size: 12px;
+                font-weight: bold;
+                width: 50%;
+                padding-top: 26px;
+                margin: auto;
+            }
+            .clip-circle li {
+                font-size: 10px;
+            }
+            .spotlight span {margin-left: -50px;}
+            .spotlight span.line { 
+                position: absolute;
+                height: 6px;
+                width: 100px;
+                z-index: -99;
+                background: lightblue;
+            }
+            .spotlight.flightnetwork span {width: 30px;top: 100px;left: 200px;background:#00adff}
+            .spotlight.seasonal span {width: 30px;top: 300px;left: 70px;background:#fd8218}
+            .spotlight.bestairports span { width: 30px;top: 500px;left: 200px;background: #27bb1d}
+            .correlations {margin-top:10px;text-align:center;}
+            .calendarHeatmap, .maps, .correlations, .carrierCompare, .bestnworse {border: 5px solid black;border-radius: 10px;padding: 5px} 
+            
+            .maps {border-color: #00adff;}
+            .spotlight.flightnetwork .clip-circle {background: #00adff; color: #fff;} 
+            .calendarHeatmap {border-color: #fd8218;}
+            .spotlight.seasonal .clip-circle {background: #fd8218; color: #fff;} 
+            .bestnworse {border-color: #27bb1d;}
+            .spotlight.bestairports .clip-circle {background: #27bb1d; color: #fff;} 
+            .carrierCompare {border-color: #bb4a1d;}
+            .spotlight.carrierComparison .clip-circle {background: #bb4a1d; color: #fff;} 
+            .spotlight.carrierComparison span.line {    height: 50px;width: 6px;left: 146px;margin-top: -35px;background: #bb4a1d;}
+
+            .cat img {width: 600px;height: 370px;}
+            .bestnworse {margin-top:10px;}
+            .calendarHeatmap {left: 25px;}
+            .carrierComparison {margin-top: 340px;}
+        </style>
+    </head>
+    <body>
+        <div class="container theme-showcase" role="main">            
+            <!-- Main jumbotron for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <h1>A Hitchhikers Guide to U.S.A</h1>
+                <p>A flight data visualisation of the US domestic flight network and delay data</p>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-4 carrierCompare">                     
+                    <h4>Airline Performance</h4>
+                    <div class="airlineComparison"></div>
+                </div>
+                <div class="col-md-5 calendarHeatmap">
+                    <h4>Seasonal Effects</h4>
+                    <!--<svg class="calendarHeatmap" width="300" height="800"></svg>-->
+                </div>
+                <div class="col-md-3">
+                        <div class="spotlight flightnetwork">
+                            <div class="clip-circle">
+                                <h5>Flight Network</h5>
+                                <p>
+                                    <ul>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <span class="line"></span>
+                        </div>
+                        <div class="spotlight seasonal">
+                            <div class="clip-circle">
+                                <h5>When to travel?</h5>
+                                <p>
+                                    <ul>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <span class="line"></span>
+                        </div>
+                        <div class="spotlight bestairports">
+                            <div class="clip-circle">
+                                <h5>Delay Stats</h5>
+                                <p>
+                                    <ul>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <span class="line"></span>
+                        </div>
+                        <div class="spotlight carrierComparison">
+                            <div class="clip-circle">
+                                <h5>Carrier Comparison</h5>
+                                <p>
+                                    <ul>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <span class="line"></span>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12 maps">
+                    <h4 class="left">Flight Network</h4>
+                    <div class="btn-group right" role="group" aria-label="View">
+                        <button id="interactive" type="button" class="btn btn-info">View Interactive</button>    
+                        <button id="networkoverview" type="button" class="btn btn-info">View Overview</button>
+                        <button id="delaybreakdowns" type="button" class="btn btn-info">View Delay breakdowns</button>    
+                    </div>
+                    <!--Primary Network Diagram and Interactive Map goes here -->
+                    <div id="interactiveContent" class="cat">
+                            <div class="howto">
+                                    <p class="show"></p>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                select a year
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        </ul>
+                                    </div>
+                            </div>
+                            <div class="mapContainer">
+                                    <div class="map">
+                                        <svg class="interactiveMap" width="650" height="350"></svg>
+                                    </div>
+                                    <div class="summary">
+                                        <h5><span></span></h5>
+                                        <p>Total <span></span> flights</p>
+                                    </div>
+                            </div>
+                    </div>
+                    <div id="networkoverviewContent" class="cat">
+                        <img src="visualisationImages/Networks.jpg"/>
+                    </div>
+                    <div id="delaybreakdownsContent" class="cat">
+                        <img src="visualisationImages/PieCharts.jpg"/>
+                    </div>
+                </div>
+                <div class="col-md-12 bestnworse">
+                    <!-- best ane worse airports -->
+                    <h4>Best/Worse Airports</h4>
+                    <div class='tableauPlaceholder' id='viz1507343702966' style='transform:scale(1,1);'>
+                            <noscript>
+                                <a href='#'>
+                                    <img alt='Dashboard 3' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Final_1_7&#47;Dashboard3&#47;1_rss.png' style='border: none' />
+                                </a>
+                            </noscript>
+                            <object class='tableauViz' style='display:none;'>
+                                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                                <param name='embed_code_version' value='2' />
+                                <param name='site_root' value='' /><param name='name' value='Final_1_7&#47;Dashboard3' />
+                                <param name='tabs' value='no' />
+                                <param name='toolbar' value='no' />
+                                <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Final_1_7&#47;Dashboard3&#47;1.png' />
+                                <param name='animate_transition' value='yes' />
+                                <param name='display_static_image' value='yes' />
+                                <param name='display_spinner' value='yes' />
+                                <param name='display_overlay' value='yes' />
+                                <param name='display_count' value='yes' />
+                                <param name='filter' value='publish=yes' />
+                            </object>
+                    </div>                
+                    <script type='text/javascript'>                    
+                        var divElement = document.getElementById('viz1507343702966');                    
+                        var vizElement = divElement.getElementsByTagName('object')[0];                    
+                        vizElement.style.width='600px';vizElement.style.height='800px';                    
+                        var scriptElement = document.createElement('script');                    
+                        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+                        vizElement.parentNode.insertBefore(scriptElement, vizElement);                 
+                    </script>                      
+                </div>
+            </div>
+            <div class="col-md-12 correlations">
+                <h4>Delay reasons and types Correlations</h4>
+                <img class="left row" src="visualisationImages/corsMatrix.png"></img>
+                <img class="left row" src="visualisationImages/corsHeatmap.png"></img>
+                <img class="left row" src="visualisationImages/corsScatter.png"></img>
+            </div>
+        </div>
+    </body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="scriptsv2/bootstrap.min.js"></script>
+    <!-- d3 js files --> 
+    <script src="node_modules/d3/build/d3.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="scriptsv2/calendarHeatmap.js"></script>
+    <!-- VA js files -->
+    <script src="scriptsv2/airportMap2.js"></script>
+    <script src="scriptsv2/svgBubble.js"></script>
+    <script type="text/javascript">
+        $(".cat").hide();
+        $("#interactiveContent").show();
+        $(".btn-info").on("click", function(){
+            $(".cat").hide();
+            $('#' + this.id + 'Content').fadeIn( "slow" );
+        });
+    </script>
+</html>
