@@ -16,7 +16,7 @@ var svgCalendarContainer = d3.select(".calendarHeatmap")
   .attr("width", width)
   .attr("height", height)
 .append("g")
-  .attr("transform", "translate(" + ((width - cellSize * 50) / 3.5) + "," + (height - cellSize * 7 - 1) + ")");
+  .attr("transform", "translate(" + ((width - cellSize * 50) / 5) + "," + (height - cellSize * 7 - 1) + ")");
 
 svgCalendarContainer.append("text")
 .attr("transform", "translate(-10," + cellSize * 3.5 + ")")

@@ -47,7 +47,7 @@
                 pointer-events: none;			
             }
             .clip-circle {
-                clip-path: circle(60px at center);
+                clip-path: circle(70px at center);
                 /* OLD VALUE example: circle(245px, 140px, 50px); */
                 /* Yep, even the new clip-path has deprecated stuff. */
             }
@@ -55,18 +55,18 @@
             span.carrierName {width: 140px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
             .clip-circle {
                 background: lightblue;
-                height: 150px;
-                width: 150px;
+                height: 170px;
+                width: 170px;
                 text-align: center;
-                margin-top: 50px;
-                margin-left: 20px;
+                margin-top: 40px;
+                margin-left: -4px;
                 z-index: 1;
             }
             .clip-circle h5 {
                 font-size: 12px;
                 font-weight: bold;
                 width: 50%;
-                padding-top: 26px;
+                padding-top: 35px;
                 margin: auto;
             }
             .clip-circle li {
@@ -80,9 +80,9 @@
                 z-index: -99;
                 background: lightblue;
             }
-            .spotlight.flightnetwork span {width: 30px;top: 100px;left: 200px;background:#00adff}
-            .spotlight.seasonal span {width: 30px;top: 300px;left: 70px;background:#fd8218}
-            .spotlight.bestairports span { width: 30px;top: 500px;left: 200px;background: #27bb1d}
+            .spotlight.flightnetwork span {width: 30px;top: 100px;left: 197px;background:#00adff}
+            .spotlight.seasonal span {width: 40px;top: 300px;left: 45px;background:#fd8218}
+            .spotlight.bestairports span { width: 50px;top: 500px;left: 176px;background: #27bb1d}
             .correlations {margin-top:10px;text-align:center;}
             .calendarHeatmap, .maps, .correlations, .carrierCompare, .bestnworse {border: 5px solid black;border-radius: 10px;padding: 5px} 
             
@@ -94,12 +94,12 @@
             .spotlight.bestairports .clip-circle {background: #27bb1d; color: #fff;} 
             .carrierCompare {border-color: #bb4a1d;}
             .spotlight.carrierComparison .clip-circle {background: #bb4a1d; color: #fff;} 
-            .spotlight.carrierComparison span.line {    height: 50px;width: 6px;left: 146px;margin-top: -35px;background: #bb4a1d;}
+            .spotlight.carrierComparison span.line { height: 6px;width: 60px;left: 45px;margin-top: -35px;background: #bb4a1d;top: 1200px;}
 
             .cat img {width: 600px;height: 370px;}
             .bestnworse {margin-top:10px;}
             .calendarHeatmap {left: 25px;}
-            .carrierComparison {margin-top: 340px;}
+            .carrierComparison {margin-top: -31px;}
         </style>
     </head>
     <body>
@@ -114,9 +114,24 @@
                     <h4>Airline Performance</h4>
                     <div class="airlineComparison"></div>
                 </div>
-                <div class="col-md-5 calendarHeatmap">
-                    <h4>Seasonal Effects</h4>
-                    <!--<svg class="calendarHeatmap" width="300" height="800"></svg>-->
+                <div class="col-md-5">
+                    <div class="calendarHeatmap">
+                        <h4>Seasonal Effects</h4>
+                    </div>
+                    <!-- tips airlines -->
+                    <div class="spotlight carrierComparison">
+                            <div class="clip-circle">
+                                <h5>Carrier Comparison</h5>
+                                <p>
+                                    <ul>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>lorem ipsum</span></li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <span class="line"></span>
+                    </div>
                 </div>
                 <div class="col-md-3">
                         <div class="spotlight flightnetwork">
@@ -148,19 +163,6 @@
                         <div class="spotlight bestairports">
                             <div class="clip-circle">
                                 <h5>Delay Stats</h5>
-                                <p>
-                                    <ul>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <span class="line"></span>
-                        </div>
-                        <div class="spotlight carrierComparison">
-                            <div class="clip-circle">
-                                <h5>Carrier Comparison</h5>
                                 <p>
                                     <ul>
                                         <li><span>lorem ipsum</span></li>
@@ -214,7 +216,7 @@
                 <div class="col-md-12 bestnworse">
                     <!-- best ane worse airports -->
                     <h4>Best/Worse Airports</h4>
-                    <div class='tableauPlaceholder' id='viz1507343702966' style='transform:scale(1,1);'>
+                    <div class='tableauPlaceholder' id='viz1507343702966' style='transform:scale(1,1);overflow:scroll !important;text-align:center;'>
                             <noscript>
                                 <a href='#'>
                                     <img alt='Dashboard 3' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Fi&#47;Final_1_7&#47;Dashboard3&#47;1_rss.png' style='border: none' />
@@ -238,7 +240,7 @@
                     <script type='text/javascript'>                    
                         var divElement = document.getElementById('viz1507343702966');                    
                         var vizElement = divElement.getElementsByTagName('object')[0];                    
-                        vizElement.style.width='600px';vizElement.style.height='800px';                    
+                        vizElement.style.width='600px';vizElement.style.height='755px';                    
                         var scriptElement = document.createElement('script');                    
                         scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
                         vizElement.parentNode.insertBefore(scriptElement, vizElement);                 
