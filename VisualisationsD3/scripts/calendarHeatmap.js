@@ -1,4 +1,4 @@
-var width = 300,
+var width = 280,
 height = 42,
 cellSize = 4.3;
 
@@ -15,10 +15,6 @@ var color = d3.scaleSequential(d3.interpolateYlOrRd) // d3.interpolateRdYlGn
 //width = +svgCalendar.attr("width"),
 //height = +svgCalendar.attr("height");
 
-var t = d3.transition()
-.duration(750)
-.ease(d3.easeLinear);
-
 var svgCalendarContainer = d3.select(".calendarHeatmap")
 .selectAll("svg.calendarSVG")
 .data(d3.range(1987, 2009))
@@ -27,7 +23,7 @@ var svgCalendarContainer = d3.select(".calendarHeatmap")
   .attr("width", width)
   .attr("height", height)
 .append("g")
-  .attr("transform", "translate(" + ((width - cellSize * 50) / 2) + "," + (height - cellSize * 7 - 1) + ")");
+  .attr("transform", "translate(" + ((width - cellSize * 50) / 3.5) + "," + (height - cellSize * 7 - 1) + ")");
 
 /* svgCalendarContainer
 .data(d3.range(1987, 2009))
@@ -38,9 +34,10 @@ var svgCalendarContainer = d3.select(".calendarHeatmap")
   .attr("transform", "translate(" + ((width - cellSize * 53) / 2+80) + "," + (height - cellSize * 7 - 1) + ")");*/
 
 svgCalendarContainer.append("text")
-.attr("transform", "translate(-15," + cellSize * 3.5 + ")")
+.attr("transform", "translate(-10," + cellSize * 3.5 + ")")
 .attr("font-family", "sans-serif")
 .attr("font-size", 10)
+.attr("writing-mode", "tb-rl")
 .attr("text-anchor", "middle")
 .attr("opacity",0)
 .text(function(d) { return d; });
