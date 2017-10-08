@@ -9,8 +9,9 @@
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel='stylesheet' href='styles/flightInteractiveMap.css' type='text/css' media='all' />
         <style>
-            .theme-showcase {max-width:1407px;}
-            .jumbotron {padding-top:10px; padding-bottom: 10px;margin-bottom: 10px}
+            .theme-showcase {max-width:1407px;min-width:1407px;}
+            .jumbotron {padding-top:10px; padding-bottom: 10px;margin-bottom: 10px; text-align:center;}
+            .jumbotron h1 { font-size: 50px;}
             .col-md-3, .col-md-6, .col-md-2, .col-md-5, .col-md-12 {border: 0px none; padding-left: 5px;padding-right: 5px;/*1px solid black;*/}
             .left {float: left}
             .right {float: right}
@@ -73,7 +74,7 @@
             .clip-circle li {
                 font-size: 10px;
             }
-            .spotlight span {margin-left: -50px;}
+            .spotlight span.line {margin-left: -50px;}
             .spotlight span.line { 
                 position: absolute;
                 height: 6px;
@@ -82,7 +83,7 @@
                 background: lightblue;
             }
             .spotlight.flightnetwork span {width: 35px;top: 100px;left: 197px;background:#00adff}
-            .spotlight.seasonal span {width: 40px;top: 300px;left: 45px;background:#fd8218}
+            .spotlight.seasonal span.line {width: 40px;top: 300px;left: 45px;background:#fd8218}
             .spotlight.bestairports span { width: 55px;top: 511px;left: 176px;background: #27bb1d}
             .correlations {margin-top:10px;text-align:center;}
             .calendarHeatmap, .maps, .correlations, .carrierCompare, .bestnworse {border: 5px solid black;border-radius: 10px;padding: 5px} 
@@ -101,6 +102,8 @@
             .bestnworse {margin-top:10px;}
             .calendarHeatmap {left: 25px;}
             .carrierComparison {margin-top: -31px;}
+            .spotlight ul li { width: 109px;margin-left: 5px;text-align: left;}
+            #networkoverviewContent, #delaybreakdownsContent {margin: auto;width: 100%;text-align: center;}
         </style>
     </head>
     <body>
@@ -125,9 +128,8 @@
                                 <h5>Carrier Comparison</h5>
                                 <p>
                                     <ul>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>Circle size represents delay %</span></li>
+                                        <li><span>Number of circle represents yearly performances</span></li>
                                     </ul>
                                 </p>
                             </div>
@@ -140,9 +142,9 @@
                                 <h5>Flight Network</h5>
                                 <p>
                                     <ul>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>Circle size denotes centrality</span></li>
+                                        <li><span>Color scale denotes delay %</span></li>
+                                        <li><span>Red paths for delays</span></li>
                                     </ul>
                                 </p>
                             </div>
@@ -153,9 +155,8 @@
                                 <h5>When to travel?</h5>
                                 <p>
                                     <ul>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>Sep & Oct are best times to travel</span></li>
+                                        <li><span>Avoid Nov & Dec holiday periods</span></li>
                                     </ul>
                                 </p>
                             </div>
@@ -166,9 +167,8 @@
                                 <h5>Delay Stats</h5>
                                 <p>
                                     <ul>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
-                                        <li><span>lorem ipsum</span></li>
+                                        <li><span>Avoid ORD, JFK,ATL,PHL & EWR</span></li>
+                                        <li><span>Suggest use AUS, ONT, ABQ, & PDX</span></li>
                                     </ul>
                                 </p>
                             </div>
@@ -208,10 +208,10 @@
                             </div>
                     </div>
                     <div id="networkoverviewContent" class="cat">
-                        <img src="visualisationImages/Networks.jpg"/>
+                        <img src="visualisationImages/PrimaryNetwork.png"/>
                     </div>
                     <div id="delaybreakdownsContent" class="cat">
-                        <img src="visualisationImages/PieCharts.jpg"/>
+                        <img src="visualisationImages/primaryPie.png"/>
                     </div>
                 </div>
                 <div class="col-md-12 bestnworse">
