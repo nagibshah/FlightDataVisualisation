@@ -82,21 +82,27 @@
                 z-index: -99;
                 background: lightblue;
             }
-            .spotlight.flightnetwork span {width: 35px;top: 100px;left: 197px;background:#00adff}
-            .spotlight.seasonal span.line {width: 40px;top: 300px;left: 45px;background:#fd8218}
-            .spotlight.bestairports span { width: 55px;top: 511px;left: 176px;background: #27bb1d}
+            .spotlight.flightnetwork .clip-circle {margin-top:0px !important;}
+            .spotlight.flightnetwork span.line {width: 35px;top: 55px;left: 197px;background:#00adff}
+            .spotlight.flightnetwork.nineeleven span.line {top: 225px;}
+            .spotlight.flightnetwork.y2k span.line {top: 390px;}
+            .spotlight.seasonal span.line {width: 40px;top: 636px;left: 45px;background:#fd8218}
+            .spotlight.bestairports span.line { width: 55px;top: 872px;left: 176px;background: #27bb1d}
             .correlations {margin-top:10px;text-align:center;}
+            .spotlight.delaystats span.line { width: 6px;height:82px; top: 1200px;left: 135px;background: #7700ff}
             .calendarHeatmap, .maps, .correlations, .carrierCompare, .bestnworse {border: 5px solid black;border-radius: 10px;padding: 5px} 
             
             .maps {border-color: #00adff;}
             .spotlight.flightnetwork .clip-circle {background: #00adff; color: #fff;} 
             .calendarHeatmap {border-color: #fd8218;}
-            .spotlight.seasonal .clip-circle {background: #fd8218; color: #fff;} 
+            .spotlight.seasonal .clip-circle {background: #fd8218; color: #fff;margin-top:70px} 
             .bestnworse {border-color: #27bb1d;}
-            .spotlight.bestairports .clip-circle {background: #27bb1d; color: #fff;} 
+            .spotlight.bestairports .clip-circle {background: #27bb1d; color: #fff;margin-top:70px} 
             .carrierCompare {border-color: #bb4a1d;}
             .spotlight.carrierComparison .clip-circle {background: #bb4a1d; color: #fff;} 
             .spotlight.carrierComparison span.line { height: 6px;width: 60px;left: 45px;margin-top: -35px;background: #bb4a1d;top: 1200px;}
+            .spotlight.delaystats .clip-circle {background: #7700ff; color: #fff;margin-top:112px;} 
+            .correlations {border-color:#7700ff;}
 
             .cat img {width: 600px;height: 370px;}
             .bestnworse {margin-top:10px;}
@@ -150,6 +156,33 @@
                             </div>
                             <span class="line"></span>
                         </div>
+                        <!-- 911 --> 
+                        <div class="spotlight flightnetwork nineeleven">
+                                <div class="clip-circle">
+                                    <h5>September 11</h5>
+                                    <p>
+                                        <ul>
+                                            <li><span>Significant reduction in delay 2001</span></li>
+                                            <li><span>Gradual recovery post 911 till 2003</span></li>
+                                        </ul>
+                                    </p>
+                                </div>
+                                <span class="line"></span>
+                        </div>
+                        <!-- y2k --> 
+                        <div class="spotlight flightnetwork y2k">
+                                <div class="clip-circle">
+                                    <h5>Y2K Bug</h5>
+                                    <p>
+                                        <ul>
+                                            <li><span>Significant increase in delay 2000 as compared to pre y2k</span></li>
+                                            <li><span>Gradual performance improvement in 2001 and 2002</span></li>
+                                        </ul>
+                                    </p>
+                                </div>
+                                <span class="line"></span>
+                        </div>
+
                         <div class="spotlight seasonal">
                             <div class="clip-circle">
                                 <h5>When to travel?</h5>
@@ -164,7 +197,7 @@
                         </div>
                         <div class="spotlight bestairports">
                             <div class="clip-circle">
-                                <h5>Delay Stats</h5>
+                                <h5>Best & Worse</h5>
                                 <p>
                                     <ul>
                                         <li><span>Avoid ORD, JFK,ATL,PHL & EWR</span></li>
@@ -173,6 +206,18 @@
                                 </p>
                             </div>
                             <span class="line"></span>
+                        </div>
+                        <div class="spotlight delaystats">
+                                <div class="clip-circle">
+                                    <h5>Delay Stats</h5>
+                                    <p>
+                                        <ul>
+                                            <li><span>All delays have a negative correlation with month</span></li>
+                                            <li><span>Late aircraft is the most correlated delay type</span></li>
+                                        </ul>
+                                    </p>
+                                </div>
+                                <span class="line"></span>
                         </div>
                 </div>
             </div>
