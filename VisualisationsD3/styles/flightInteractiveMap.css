@@ -13,6 +13,7 @@
   
   .airport:hover .airport-arc.green {
     stroke: rgb(68, 161, 68);
+    stroke-width: 0.8;
   }
   .airport:hover .airport-arc.red {
     stroke: rgb(212, 47, 47);
