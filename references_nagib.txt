@@ -1,7 +1,0 @@
-https://github.com/prcweb/d3-circularheat  - heatmap circular
-http://mbostock.github.io/d3/talk/20111116/airports.html - airport geo mapping with interaction
-http://bl.ocks.org/tjdecke/5558084 - day and hour heatmap 
-http://xliberation.com/googlecharts/d3flights.html - another example of flights geo mapping including interaction
-https://github.com/nicgirault/circosjs - ciruclar graphs 
-https://bl.ocks.org/arpitnarechania/027e163073864ef2ac4ceb5c2c0bf616  - spiral plot great for showing time info 
-https://bl.ocks.org/mbostock/1804889 - force layout multiple 
